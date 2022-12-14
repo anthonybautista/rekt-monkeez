@@ -206,6 +206,7 @@ export default {
       let contract = getVaultContract();
       await contract.claimRewardsForTokens(tokenIds).then(async ()=> {
         this.claimableMNKZ = Number(await contract.getRewardsOfManyTokens(this.userRektTokens)).toFixedNoRound(2);
+        setTimeout(this.reloadContainer,1500);
       }).catch(function (error) {
         console.error(error);
       })
