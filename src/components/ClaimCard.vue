@@ -5,7 +5,7 @@
     <p class="q-ma-none">{{claimable}}</p>
   </div>
   <q-card-section  class="q-pt-none">
-    <q-btn class="bg-accent text-black q-mt-xs" @click="claim">Claim</q-btn>
+    <q-btn rounded class="bg-accent text-black q-mt-xs" @click="claim">Claim</q-btn>
   </q-card-section>
 </template>
 
