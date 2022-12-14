@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import {getVaultContractNoSigner} from "@/utils/contract";
+import {getVaultContract, getVaultContractNoSigner} from "@/utils/contract";
 import Number from "@/utils/formatBalance";
 
 export default {
@@ -33,10 +33,16 @@ export default {
   methods: {
     async claim() {
       this.errorMessage = "Claiming..."
-      this.$emit('claim', [this.nft.tokenId]);
+      let contract = getVaultContract();
+      await contract.claimRewardsForTokens([this.nft.tokenId]).then(async ()=> {
+        this.claimable = Number(await contract.getRewardsOfToken(this.nft.tokenId)).toFixedNoRound(2);
+        this.errorMessage = "Claimed..."
+      }).catch(function (error) {
+        console.error(error);
+      })
       setTimeout(() => {
         this.errorMessage = null;
-      }, 5000)
+      }, 3000)
     },
 
   },

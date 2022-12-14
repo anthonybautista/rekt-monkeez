@@ -17,7 +17,7 @@
       <token-balance :balance="claimableMNKZ" class="q-mt-md" @claim-all="claimRewards(this.userRektTokens)"></token-balance>
       <n-f-t-container :nfts="userRektMonkeez" :key="refreshController" @reload="reloadContainer">
         <n-f-t-card v-for="item in userRektMonkeez" :key="item.tokenId" :nft="item">
-          <claim-card :nft="item" @claim="claimRewards"></claim-card>
+          <claim-card :nft="item"></claim-card>
         </n-f-t-card>
       </n-f-t-container>
     </div>
@@ -204,7 +204,11 @@ export default {
     },
     claimRewards: async function (tokenIds) {
       let contract = getVaultContract();
-      await contract.claimRewardsForTokens(tokenIds);
+      await contract.claimRewardsForTokens(tokenIds).then(async ()=> {
+        this.claimableMNKZ = Number(await contract.getRewardsOfManyTokens(this.userRektTokens)).toFixedNoRound(2);
+      }).catch(function (error) {
+        console.error(error);
+      })
     }
   },
 
