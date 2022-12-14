@@ -146,7 +146,7 @@ export default {
           response.data.result.forEach(async item => {
             let token = Number(item.token_id);
             rektTokens.push(token);
-            let uri = `http://api.rektmonkeez.com/api/image/${token}`;
+            let uri = `http://rekt.smolrun.com/api/image/${token}`;
             nfts.push(new NFT(token, uri));
           });
         }
