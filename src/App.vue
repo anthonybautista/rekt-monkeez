@@ -129,6 +129,7 @@ export default {
       this.refreshController = !this.refreshController;
     },
     getNFTs: function(nftAddress) {
+      const unique = [69,187,222,333,404,487];
       const options = {
           method: 'GET',
           url: 'https://deep-index.moralis.io/api/v2/'+this.account+'/nft',
@@ -146,7 +147,11 @@ export default {
           response.data.result.forEach(async item => {
             let token = Number(item.token_id);
             rektTokens.push(token);
-            let uri = `https://rekt-api.smolrun.repl.co/api/image/${token}`;
+            let extension = "png";
+            if (unique.includes(token)) {
+              extension = "PNG";
+            }
+            let uri = `https://mnkz-img.rektmonkeez.com/${token}.${extension}`;
             nfts.push(new NFT(token, uri));
           });
         }
