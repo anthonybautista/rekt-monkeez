@@ -157,7 +157,7 @@ export default {
         }
       }).then(async ()=> {
         let contract = getVaultContractNoSigner();
-        this.claimableMNKZ = Number(await contract.getRewardsOfManyTokens(rektTokens)).toFixedNoRound(2);
+        this.claimableMNKZ = (Number(await contract.getRewardsOfManyTokens(rektTokens))/10**18).toFixedNoRound(2);
       }).catch(function (error) {
         console.error(error);
       });

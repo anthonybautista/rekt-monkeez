@@ -35,7 +35,7 @@ export default {
       this.errorMessage = "Claiming..."
       let contract = getVaultContract();
       await contract.claimRewardsForTokens([this.nft.tokenId]).then(async ()=> {
-        this.claimable = Number(await contract.getRewardsOfToken(this.nft.tokenId)).toFixedNoRound(2);
+        this.claimable = (Number(await contract.getRewardsOfToken(this.nft.tokenId)) / 10**18).toFixedNoRound(2);
         this.errorMessage = "Claimed..."
       }).catch(function (error) {
         console.error(error);
@@ -55,7 +55,7 @@ export default {
 
   mounted: async function () {
     let contract = getVaultContractNoSigner();
-    this.claimable = Number(await contract.getRewardsOfToken(this.nft.tokenId)).toFixedNoRound(2);
+    this.claimable = (Number(await contract.getRewardsOfToken(this.nft.tokenId)) / 10**18).toFixedNoRound(2);
   },
 }
 </script>
