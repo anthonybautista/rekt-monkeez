@@ -156,8 +156,7 @@ export default {
           });
         }
       }).then(async ()=> {
-        let contract = getVaultContractNoSigner();
-        this.claimableMNKZ = (Number(await contract.getRewardsOfManyTokens(rektTokens))/10**18).toFixedNoRound(2);
+        await this.getTotalClaimable(rektTokens);
       }).catch(function (error) {
         console.error(error);
       });
@@ -210,12 +209,16 @@ export default {
     claimRewards: async function (tokenIds) {
       let contract = getVaultContract();
       await contract.claimRewardsForTokens(tokenIds).then(async ()=> {
-        this.claimableMNKZ = Number(await contract.getRewardsOfManyTokens(this.userRektTokens)).toFixedNoRound(2);
-        setTimeout(this.reloadContainer,1500);
+        setTimeout(this.reloadContainer,2000);
+        await this.getTotalClaimable(this.userRektTokens);
       }).catch(function (error) {
         console.error(error);
       })
-    }
+    },
+    getTotalClaimable: async function(rektTokens) {
+      let contract = getVaultContractNoSigner();
+      this.claimableMNKZ = (Number(await contract.getRewardsOfManyTokens(rektTokens))/10**18).toFixedNoRound(2);
+    },
   },
 
 
