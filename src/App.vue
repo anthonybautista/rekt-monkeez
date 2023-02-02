@@ -143,7 +143,7 @@ export default {
       let nfts = [];
       let rektTokens = [];
       axios.request(options).then(function (response) {
-        if(response.data.total > 0) {
+        if(response.data.result.length > 0) {
           response.data.result.forEach(async item => {
             let token = Number(item.token_id);
             rektTokens.push(token);
@@ -183,7 +183,7 @@ export default {
         headers: {accept: 'application/json', 'X-API-Key': 'TFLNINGrrGggKQwtPcGC9jgoUHArTaNZtBQK4gPeWliEGyDrqKJSXZSAnBFq12Nv'}
       };
       axios.request(options).then(function (response) {
-        if(response.data.total > 0) {
+        if(response.data.result.length > 0) {
           response.data.result.forEach(async item => {
             let token = item.token_id;
             if (pelu.includes(Number(token))) {
